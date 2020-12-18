@@ -1,4 +1,4 @@
-  
+const bodyParser = require('body-parser')  
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
@@ -16,15 +16,11 @@ const db = mysql.createPool({
 
 
 app.post("/create", (req, res) => {
-  const nome = req.body.nome;
-  const observacao = req.body.observacao;
-  const responsavel = req.body.responsavel;
-  const nascimento = req.body.nascimento;
-  const grau = req.body.grau;
-
+  const {criNome, criObservacao, criResponsavel, criNascimento, criGrau} = req.body;
+  console.log(req.body)
   db.query(
     "INSERT INTO rec.crianca (nomecri, observacaocri, responsavelcri,graucri, nascimentocri) VALUES (?,?,?,?,?)",
-    [nomecri, observacaocri, responsavelcri, nascimentocri, graucri],
+    [criNome, criObservacao, criResponsavel,criGrau, criNascimento],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -46,11 +42,11 @@ app.post("/create", (req, res) => {
 });
  
 app.put("/update", (req, res) => {
-  const id = req.body.id;
-  const wage = req.body.age;
+  const criId = req.body.id;
+  
   db.query(
     "UPDATE rec.crianca WHERE id = ?",
-    [id],
+    [criId],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -62,8 +58,9 @@ app.put("/update", (req, res) => {
 });
 
 app.delete("/delete/:id", (req, res) => {
-  const id = req.params.id;
-  db.query("DELETE FROM rec.crianca WHERE id = ?", id, (err, result) => {
+  const criId = req.body.criId;
+  console.log(req.body)
+  db.query("DELETE FROM rec.crianca WHERE id = ?", criId, (err, result) => {
     if (err) {
       console.log(err);
     } else {
