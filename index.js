@@ -10,7 +10,7 @@ app.use(express.json());
 const db = mysql.createPool({
   user: "root",
   host: "localhost",
-  password: "u1n9e1",
+  password: "JJmilo12",
   database: "rec",
 });
 
@@ -45,7 +45,7 @@ app.put("/update", (req, res) => {
   const criId = req.body.id;
   
   db.query(
-    "UPDATE rec.crianca WHERE id = ?",
+    "UPDATE rec.crianca WHERE idcri = ?",
     [criId],
     (err, result) => {
       if (err) {
@@ -60,7 +60,7 @@ app.put("/update", (req, res) => {
 app.delete("/delete/:id", (req, res) => {
   const criId = req.body.criId;
   console.log(req.body)
-  db.query("DELETE FROM rec.crianca WHERE id = ?", criId, (err, result) => {
+  db.query("DELETE FROM rec.crianca WHERE idcri = ?", criId, (err, result) => {
     if (err) {
       console.log(err);
     } else {
